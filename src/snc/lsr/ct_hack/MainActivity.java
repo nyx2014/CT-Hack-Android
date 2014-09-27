@@ -132,9 +132,13 @@ public class MainActivity extends Activity {
 		                handler.sendMessage(message5);
 			            openCart.sendGet("http://wifi.189.cn/service/cart.do",map2,cookie);
 
+//			            Random random = new Random();
+//			            String phone_num = String.valueOf(random.nextInt(100000000));
+//			            phone_num = "131"+phone_num;
 			            Random random = new Random();
-			            String phone_num = String.valueOf(random.nextInt(100000000));
-			            phone_num = "131"+phone_num;
+			            String phone_num = "131";
+			            for(int i=1;i<=8;i++)
+			            	phone_num = phone_num + String.valueOf(random.nextInt(10));
 			            
 			            map3.put("phone", phone_num);
 			            map3.put("phone_1", phone_num);
@@ -143,7 +147,7 @@ public class MainActivity extends Activity {
 		                handler.sendMessage(message6);
 			            HttpRespons data = openCart.sendGet("http://wifi.189.cn/service/user.do",map3,cookie);
 			            
-			            String orderNum = data.getContent().substring(2);
+			            String orderNum = data.getContent().substring(2,18);
 			            
 			            Message message7 = handler.obtainMessage();
 			            message7.obj="得到的订单号："+orderNum+"\n";
@@ -245,7 +249,7 @@ public class MainActivity extends Activity {
 		        	Message messagee = handler.obtainMessage();
 		            messagee.obj="请求出错: " + e.getMessage() + ",请检查网络连接";
 	                handler.sendMessage(messagee);
-		            //e.printStackTrace();
+		            e.printStackTrace();
 		        }
 		handler.sendEmptyMessage(0);
 		}
